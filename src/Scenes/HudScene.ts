@@ -20,8 +20,8 @@ export class HudScene extends Phaser.Scene {
     }
 
     create() {
-        this.controlIzquierdo = this.add.sprite(100,600, 'boton_flecha').setScale(.4).setDepth(100)
-        this.controlDerecho = this.add.sprite(1100,600, 'boton_flecha').setScale(.4).setDepth(100)
+        this.controlIzquierdo = this.add.sprite(100,600, 'boton_flecha').setScale(.4).setDepth(1)
+        this.controlDerecho = this.add.sprite(1100,600, 'boton_flecha').setScale(.4).setDepth(1)
         this.controlDerecho.flipX = true
         this.controlIzquierdo.setInteractive()
         this.controlDerecho.setInteractive()
