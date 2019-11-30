@@ -4,6 +4,8 @@ export class HudScene extends Phaser.Scene {
 
     controlIzquierdo!: Phaser.GameObjects.Sprite
     controlDerecho!: Phaser.GameObjects.Sprite
+    Moneda!: Phaser.Scene
+
     constructor() {
         super({
             key: 'HUD',
@@ -23,16 +25,28 @@ export class HudScene extends Phaser.Scene {
         this.controlDerecho.flipX = true
         this.controlIzquierdo.setInteractive()
         this.controlDerecho.setInteractive()
+
+        this.Moneda = this.scene.get('MONEDA')        
     }
 
     update( time: number, delta: number) {
+        
         this.controlIzquierdo.on('pointerdown', () => {
-            console.log('mueve mueve')
-            this.events.emit('controlIzquierdoDown')
+            this.Moneda.events.emit('touch_left')
         })
 
         this.controlIzquierdo.on('pointerup', () => {
-            this.events.emit('noTouch')
+            this.Moneda.events.emit('touch_left_out')
         })
+
+        this.controlDerecho.on('pointerdown', () => {
+            this.Moneda.events.emit('touch_right')
+        })
+
+        this.controlDerecho.on('pointerup', () => {
+            this.Moneda.events.emit('touch_right_out')
+        })
+        
+
     }
 }

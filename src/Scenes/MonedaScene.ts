@@ -1,12 +1,14 @@
 import "phaser"
+import { Pinera } from '../GameObjects/Pinera'
 import { CST } from '../Config/CST'
+import { makeAnimations } from '../Config/Animations'
 
 export class MonedaScene extends Phaser.Scene {
 
-    pinera!: Phaser.Physics.Arcade.Sprite
+    pinera!: Pinera
     keyboard: { [index:string] : Phaser.Input.Keyboard.Key }
     direction : string = 'right'
-
+    isRunning!: Boolean
 
     constructor() {
         super({
@@ -23,60 +25,38 @@ export class MonedaScene extends Phaser.Scene {
     }
 
     create() {
-            
-        this.anims.create({
-            key: 'pinera_run',
-            frameRate: 12,
-            frames: this.anims.generateFrameNumbers('pinera_run_right', {
-                start: 1,
-                end: 8
-            }),
-            repeat: -1,
-        })
-
-        this.anims.create({
-            key: 'pinera_idle',
-            frameRate: 12,
-            frames: this.anims.generateFrameNumbers('pinera_idle_right', {
-                start: 1, 
-                end: 5
-            }),
-            repeat: -1
-        })
-
-        // @ts-ignore
+        
+        //@ts-ignore
         this.keyboard = this.input.keyboard.addKeys("W, A, S, D")
-        this.pinera = this.physics.add.sprite( 600, 590, 'pinera_run_right', 0).setScale(1).setImmovable(true)
 
+        /**
+         * Cargar las animaciones de los sprites
+         */
+        makeAnimations(this)
+
+        /**
+         * CREAR A PIÑERA!!
+         */
+        this.pinera = new Pinera(this, 600, 600, 'pinera_idle_right', 1)
+        
+        this.events.on('touch_left', () => this.pinera.walkLeft())
+        this.events.on('touch_left_out', () => this.pinera.idle())
+        this.events.on('touch_right', () => this.pinera.walkRight())
+        this.events.on('touch_right_out', () => this.pinera.idle())
     }
 
     update(time: number, delta: number) {
 
         if (this.keyboard.D.isDown === true) {
-            
-            if ( this.direction === 'left') {
-                this.pinera.flipX = false
-                this.direction = 'right'
-            }
-            this.pinera.setVelocityX(160)
-            this.pinera.play('pinera_run', true, 1)
+            this.pinera.walkRight()
         }
 
         if (this.keyboard.A.isDown === true) {
-
-            if ( this.direction === 'right') {
-                this.pinera.flipX = true 
-                this.direction = 'left'
-            }
-            this.pinera.setVelocityX(-160)
-            this.pinera.play('pinera_run', true, 1)
-
+            this.pinera.walkLeft()
         }
 
-        if (this.keyboard.A.isUp && this.keyboard.D.isUp) {
-            this.pinera.setVelocityX(0)
-            this.pinera.play('pinera_idle', true, 1)
-        }
-
+        // if (this.keyboard.A.isUp && this.keyboard.D.isUp) {
+        //     this.pinera.idle()
+        // }
     }
 }
