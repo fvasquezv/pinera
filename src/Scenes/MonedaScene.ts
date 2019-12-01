@@ -8,7 +8,7 @@ export class MonedaScene extends Phaser.Scene {
     pinera!: Pinera
     keyboard: { [index:string] : Phaser.Input.Keyboard.Key }
     direction : string = 'right'
-    isRunning!: Boolean
+    isKeyboardPressed : boolean
 
     constructor() {
         super({
@@ -16,18 +16,25 @@ export class MonedaScene extends Phaser.Scene {
         })
     }
 
-    init() {
-    }
-
     preload() {
+
+        /**
+         * Precarga de sprites
+         */
         this.load.spritesheet('pinera_run_right', '../assets/sprites/pinera/run_right.png', { frameHeight: 250, frameWidth: 250 })
         this.load.spritesheet('pinera_idle_right', '../assets/sprites/pinera/idle.png', { frameHeight: 250, frameWidth: 250 })
+    
     }
 
     create() {
         
         //@ts-ignore
         this.keyboard = this.input.keyboard.addKeys("W, A, S, D")
+        
+        /**
+         * No detener la animacion para eventos touch.
+         */
+        this.isKeyboardPressed = false
 
         /**
          * Cargar las animaciones de los sprites
@@ -39,6 +46,9 @@ export class MonedaScene extends Phaser.Scene {
          */
         this.pinera = new Pinera(this, 600, 600, 'pinera_idle_right', 1)
         
+        /**
+         * Manejo de eventos touch desde el HUD
+         */
         this.events.on('touch_left', () => this.pinera.walkLeft())
         this.events.on('touch_left_out', () => this.pinera.idle())
         this.events.on('touch_right', () => this.pinera.walkRight())
@@ -49,14 +59,19 @@ export class MonedaScene extends Phaser.Scene {
 
         if (this.keyboard.D.isDown === true) {
             this.pinera.walkRight()
+            this.isKeyboardPressed = true
         }
 
         if (this.keyboard.A.isDown === true) {
+            this.isKeyboardPressed = true
             this.pinera.walkLeft()
         }
 
-        // if (this.keyboard.A.isUp && this.keyboard.D.isUp) {
-        //     this.pinera.idle()
-        // }
+        if (this.keyboard.A.isUp && this.keyboard.D.isUp) {
+            if ( this.isKeyboardPressed === true ) {
+                this.pinera.idle()
+                this.isKeyboardPressed = false
+            }
+        }
     }
 }
