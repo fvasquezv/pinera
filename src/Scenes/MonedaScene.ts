@@ -53,6 +53,8 @@ export class MonedaScene extends Phaser.Scene {
         this.events.on('touch_left_out', () => this.pinera.idle())
         this.events.on('touch_right', () => this.pinera.walkRight())
         this.events.on('touch_right_out', () => this.pinera.idle())
+        this.events.on('touch_jump', () => this.pinera.jump())
+        this.events.on('touch_jump_out', () => this.pinera.idle())
     }
 
     update(time: number, delta: number) {
