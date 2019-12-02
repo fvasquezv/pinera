@@ -56,6 +56,14 @@ export class MonedaScene extends Phaser.Scene {
     }
 
     update(time: number, delta: number) {
+        
+        if (this.pinera.y >= 675) {
+            this.pinera.isJumping = false
+        }
+
+        if ( this.pinera.y <= 600) {
+            this.pinera.isJumping = true
+        }
 
         if (this.keyboard.D.isDown === true) {
             this.pinera.walkRight()
@@ -65,6 +73,12 @@ export class MonedaScene extends Phaser.Scene {
         if (this.keyboard.A.isDown === true) {
             this.isKeyboardPressed = true
             this.pinera.walkLeft()
+        }
+
+        if (this.keyboard.W.isDown === true) {
+            if ( this.pinera.isJumping === false ) {
+                this.pinera.jump()
+            }
         }
 
         if (this.keyboard.A.isUp && this.keyboard.D.isUp) {

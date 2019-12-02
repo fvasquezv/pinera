@@ -4,7 +4,9 @@ export class Pinera extends Phaser.Physics.Arcade.Sprite {
 
     hp: number
     direction: string
+    isJumping: boolean = false
     private velocity: number
+
 
     constructor( scene : Phaser.Scene, x: number, y: number, texture: string, frame? : number) {
         
@@ -21,6 +23,7 @@ export class Pinera extends Phaser.Physics.Arcade.Sprite {
         this.setScale(1)
         this.setImmovable(true)
         this.play('pinera_idle')
+        this.setCollideWorldBounds(true)
 
         /**
          * Parametros iniciales
@@ -55,6 +58,14 @@ export class Pinera extends Phaser.Physics.Arcade.Sprite {
         }
         this.setVelocityX(-1 *this.velocity)
         this.play('pinera_run', true, 1)
+    }
+
+    jump() {
+        // 1.- verificar si piñera esta en una superficie
+        if (this.y <= 675) {
+            this.setVelocityY(-800)
+            this.setAccelerationY(800)
+        }
     }
 
     /**

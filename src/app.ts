@@ -10,9 +10,10 @@ let game = new Phaser.Game({
         HudScene
     ],
     physics: {
-        default: "arcade",
+        default: 'arcade',
         arcade: {
-            debug: false
+            gravity: { y: 300 },
+            debug: true
         }
     },
     scale: {
