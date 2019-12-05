@@ -29,7 +29,7 @@ export class Pinera extends Phaser.Physics.Arcade.Sprite {
          * Parametros iniciales
          */
         this.hp = 10;
-        this.velocity = 160
+        this.velocity = 180
         this.direction = 'right'
 
     }
