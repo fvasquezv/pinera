@@ -21,7 +21,7 @@ export class Pinera extends Phaser.Physics.Arcade.Sprite {
          * Construccion especifica de piñera
          */
         this.setScale(1)
-        this.setImmovable(true)
+        //athis.setImmovable(true)
         this.play('pinera_idle')
         this.setCollideWorldBounds(true)
 
@@ -29,7 +29,7 @@ export class Pinera extends Phaser.Physics.Arcade.Sprite {
          * Parametros iniciales
          */
         this.hp = 10;
-        this.velocity = 180
+        this.velocity = 200
         this.direction = 'right'
 
     }
@@ -62,10 +62,12 @@ export class Pinera extends Phaser.Physics.Arcade.Sprite {
 
     jump() {
         // 1.- verificar si piñera esta en una superficie
-        if (this.y <= 675) {
-            this.setVelocityY(-800)
+        //if (this.y <= 1000) {
+        if (this.body.blocked.down) {
+            this.setVelocityY(-950)
             this.setAccelerationY(800)
         }
+        //}
     }
 
     /**

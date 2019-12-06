@@ -1,0 +1,209 @@
+{
+	"textures": [
+		{
+			"image": "pinera_run_optimize.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 1134,
+				"h": 228
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "pinera_run_0000_8.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 96,
+						"h": 223
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 96,
+						"h": 223
+					},
+					"frame": {
+						"x": 0,
+						"y": 0,
+						"w": 96,
+						"h": 223
+					}
+				},
+				{
+					"filename": "pinera_run_0001_7.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 86,
+						"h": 217
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 86,
+						"h": 217
+					},
+					"frame": {
+						"x": 126,
+						"y": 0,
+						"w": 86,
+						"h": 217
+					}
+				},
+				{
+					"filename": "pinera_run_0002_6.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 126,
+						"h": 215
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 126,
+						"h": 215
+					},
+					"frame": {
+						"x": 252,
+						"y": 0,
+						"w": 126,
+						"h": 215
+					}
+				},
+				{
+					"filename": "pinera_run_0003_6.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 125,
+						"h": 221
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 125,
+						"h": 221
+					},
+					"frame": {
+						"x": 378,
+						"y": 0,
+						"w": 125,
+						"h": 221
+					}
+				},
+				{
+					"filename": "pinera_run_0004_5.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 109,
+						"h": 228
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 109,
+						"h": 228
+					},
+					"frame": {
+						"x": 504,
+						"y": 0,
+						"w": 109,
+						"h": 228
+					}
+				},
+				{
+					"filename": "pinera_run_0005_4.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 86,
+						"h": 214
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 86,
+						"h": 214
+					},
+					"frame": {
+						"x": 630,
+						"y": 0,
+						"w": 86,
+						"h": 214
+					}
+				},
+				{
+					"filename": "pinera_run_0006_3.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 106,
+						"h": 205
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 106,
+						"h": 205
+					},
+					"frame": {
+						"x": 756,
+						"y": 0,
+						"w": 106,
+						"h": 205
+					}
+				},
+				{
+					"filename": "pinera_run_0007_2.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 107,
+						"h": 217
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 107,
+						"h": 217
+					},
+					"frame": {
+						"x": 882,
+						"y": 0,
+						"w": 107,
+						"h": 217
+					}
+				},
+				{
+					"filename": "pinera_run_0008_1.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 85,
+						"h": 218
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 85,
+						"h": 218
+					},
+					"frame": {
+						"x": 1008,
+						"y": 0,
+						"w": 85,
+						"h": 218
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "3.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:668dc63271a832cb05dd33c2e2e6b10e:0229d8412f43470fa8addf0ecf7b9eae:7d30d2ef904fe0ad0acf19a02189193d$"
+	}
+}

@@ -9,9 +9,11 @@ export class MonedaScene extends Phaser.Scene {
     keyboard: { [index:string] : Phaser.Input.Keyboard.Key }
     direction : string = 'right'
     isKeyboardPressed : boolean
-    floor : Phaser.GameObjects.Sprite
+    floor : Phaser.GameObjects.Image
     bg : Phaser.GameObjects.Image
     cielo: Phaser.GameObjects.Image
+    lastSpawn: number = 0
+    spawnTime: number = Math.random() * 3000 + 2000
 
     constructor() {
         super({
@@ -24,11 +26,12 @@ export class MonedaScene extends Phaser.Scene {
         /**
          * Precarga de sprites
          */
-        this.load.spritesheet('pinera_run_right', '../assets/sprites/pinera/run_right.png', { frameHeight: 250, frameWidth: 250 })
-        this.load.spritesheet('pinera_idle_right', '../assets/sprites/pinera/idle.png', { frameHeight: 250, frameWidth: 250 })
+        this.load.spritesheet('pinera_run_right', '../assets/sprites/pinera/run_right.png', { frameHeight: 232, frameWidth: 250 })
+        this.load.spritesheet('pinera_idle_right', '../assets/sprites/pinera/idle.png', { frameHeight: 232, frameWidth: 250 })
         this.load.image('background', '../assets/sprites/fondo.png')
         this.load.image('cielo', '../assets/sprites/cielo.gif')
         this.load.image('floor', '../assets/sprites/floor.png')
+        this.load.image('matapaco', '../assets/sprites/matapaco.png')
     
     }
 
@@ -36,13 +39,12 @@ export class MonedaScene extends Phaser.Scene {
         
         //this.physics.world.setBounds(1200, 800, 10, 10)
         this.physics.world.setBoundsCollision(true, true, true, true)
-        
+       
         // Cargar fondo
         this.bg = this.add.image(0,0, 'background').setOrigin(0.5,0).setScale(1).setDepth(2)
         this.cielo = this.add.image(0,0, 'cielo').setOrigin(0.5, 0).setScale(1).setDepth(1)
-
-        this.floor = this.add.sprite(this.game.canvas.height,0, 'floor').setOrigin(0)
-        
+        this.floor = this.add.image(0, this.game.canvas.height - 10, 'floor').setScale(1).setDepth(3)
+        this.physics.add.existing(this.floor, true)        
 
         //@ts-ignore
         this.keyboard = this.input.keyboard.addKeys("W, A, S, D")
@@ -59,7 +61,9 @@ export class MonedaScene extends Phaser.Scene {
         /**
          * CREAR A PIÑERA!!
          */
-        this.pinera = new Pinera(this, 600, 600, 'pinera_idle_right', 1).setDepth(3)
+        this.pinera = new Pinera(this, 600, 620, 'pinera_idle_right', 1).setDepth(3)
+
+        
         
         /**
          * Manejo de eventos touch desde el HUD
@@ -74,12 +78,13 @@ export class MonedaScene extends Phaser.Scene {
         this.bg.x = this.pinera.x
         this.cielo.x = this.pinera.x
 
+        this.physics.add.collider(this.floor, this.pinera)
+
     }
 
     update(time: number, delta: number) {
 
-        
-        
+
         if (this.pinera.y >= 675) {
             this.pinera.isJumping = false
         }
@@ -89,12 +94,15 @@ export class MonedaScene extends Phaser.Scene {
         }
 
         if (this.keyboard.D.isDown === true) {
+            
             this.pinera.walkRight()
             this.isKeyboardPressed = true
+            
             if (this.pinera.body.blocked.right === false) {
                 this.bg.x -= (this.pinera.x * 1) / 1500
                 this.cielo.x -= (this.pinera.x * 1) / 3000
             }
+        
         }
 
         if (this.keyboard.A.isDown === true) {
@@ -107,10 +115,7 @@ export class MonedaScene extends Phaser.Scene {
         }
 
         if (this.keyboard.W.isDown === true) {
-            if ( this.pinera.isJumping === false ) {
                 this.pinera.jump()
-                
-            }
         }
 
         if (this.keyboard.A.isUp && this.keyboard.D.isUp) {
