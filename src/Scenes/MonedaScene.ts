@@ -1,11 +1,14 @@
 import "phaser"
 import { Pinera } from '../GameObjects/Pinera'
+import { Matapaco } from '../GameObjects/Matapaco'
 import { CST } from '../Config/CST'
 import { makeAnimations } from '../Config/Animations'
 
 export class MonedaScene extends Phaser.Scene {
 
     pinera!: Pinera
+    matapaco : Matapaco
+
     keyboard: { [index:string] : Phaser.Input.Keyboard.Key }
     direction : string = 'right'
     isKeyboardPressed : boolean
@@ -31,7 +34,7 @@ export class MonedaScene extends Phaser.Scene {
         this.load.image('background', '../assets/sprites/fondo.png')
         this.load.image('cielo', '../assets/sprites/cielo.gif')
         this.load.image('floor', '../assets/sprites/floor.png')
-        this.load.image('matapaco', '../assets/sprites/matapaco.png')
+        this.load.spritesheet('matapaco', '../assets/sprites/matapaco.png',   { frameHeight: 232, frameWidth: 250 })
     
     }
 
@@ -41,10 +44,12 @@ export class MonedaScene extends Phaser.Scene {
         this.physics.world.setBoundsCollision(true, true, true, true)
        
         // Cargar fondo
-        this.bg = this.add.image(0,0, 'background').setOrigin(0.5,0).setScale(1).setDepth(2)
+        this.bg = this.add.image(0,0, 'background').setOrigin(0.5,0).setScale(.7).setDepth(2)
         this.cielo = this.add.image(0,0, 'cielo').setOrigin(0.5, 0).setScale(1).setDepth(1)
-        this.floor = this.add.image(0, this.game.canvas.height - 10, 'floor').setScale(1).setDepth(3)
-        this.physics.add.existing(this.floor, true)        
+    
+        this.physics.world.enableBody(this.matapaco)
+        this.physics.add.existing(this.matapaco, true)
+
 
         //@ts-ignore
         this.keyboard = this.input.keyboard.addKeys("W, A, S, D")
@@ -61,7 +66,8 @@ export class MonedaScene extends Phaser.Scene {
         /**
          * CREAR A PIÑERA!!
          */
-        this.pinera = new Pinera(this, 600, 620, 'pinera_idle_right', 1).setDepth(3)
+        this.pinera = new Pinera(this, 600, 600, 'pinera_idle_right', 1).setDepth(3)
+        this.matapaco = new Matapaco(this, 600, 600, 'matapaco', 1).setDepth(3)
 
         
         
@@ -78,13 +84,15 @@ export class MonedaScene extends Phaser.Scene {
         this.bg.x = this.pinera.x
         this.cielo.x = this.pinera.x
 
-        this.physics.add.collider(this.floor, this.pinera)
+        this.physics.add.collider(this.matapaco, this.pinera)
+
 
     }
 
     update(time: number, delta: number) {
 
-
+        //console.log(this.pinera.anims.currentAnim.key)
+        
         if (this.pinera.y >= 675) {
             this.pinera.isJumping = false
         }
@@ -97,6 +105,7 @@ export class MonedaScene extends Phaser.Scene {
             
             this.pinera.walkRight()
             this.isKeyboardPressed = true
+            
             
             if (this.pinera.body.blocked.right === false) {
                 this.bg.x -= (this.pinera.x * 1) / 1500

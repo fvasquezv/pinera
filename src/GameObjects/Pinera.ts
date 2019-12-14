@@ -20,8 +20,8 @@ export class Pinera extends Phaser.Physics.Arcade.Sprite {
         /**
          * Construccion especifica de piñera
          */
-        this.setScale(1)
-        //athis.setImmovable(true)
+        this.setScale(.8)
+        this.setImmovable(true)
         this.play('pinera_idle')
         this.setCollideWorldBounds(true)
 
